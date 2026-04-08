@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JP Technology</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='15' y='42' width='70' height='50' rx='10' stroke='%23378add' stroke-width='5' fill='none'/%3E%3Cpath d='M33 42V30a17 17 0 0 1 34 0v12' stroke='%23378add' stroke-width='5' stroke-linecap='round' fill='none'/%3E%3Ccircle cx='50' cy='65' r='6' fill='%23378add'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ===== THEME VARS ===== */
+:root{--blue:#378add;--blue-d:#185fa5;--blue-l:#85b7eb;--blue-6:#0c447c;--blue-7:#042c53}
+[data-theme="dark"]{
+  --bg:#0a0f1c;--bg2:#0d1220;--bg3:#111827;--card:rgba(255,255,255,0.03);
+  --nav:rgba(10,15,28,0.9);--brd:rgba(55,138,221,0.15);--brd-h:rgba(55,138,221,0.4);
+  --tx:#fff;--tx2:rgba(255,255,255,0.55);--tx3:rgba(255,255,255,0.3);
+  --inp:rgba(255,255,255,0.05);--inp-brd:rgba(55,138,221,0.18);
+  --inp-f:rgba(55,138,221,0.5);--inp-fbg:rgba(55,138,221,0.06);
+  --tab-i:rgba(255,255,255,0.07);--tab-h:rgba(55,138,221,0.1);
+  --stat-brd:rgba(255,255,255,0.06);--foot:#060a12;--foot-brd:rgba(55,138,221,0.1);
+  --hero-glow:rgba(24,95,165,0.18);--grid:rgba(55,138,221,0.05);
+  --badge:rgba(55,138,221,0.12);--badge-brd:rgba(55,138,221,0.3);
+  --overlay:rgba(10,15,28,0.7);--sel:#0d1220;--shadow:rgba(0,0,0,0.5);
+  --modal-bg:#080d18;
+}
+[data-theme="light"]{
+  --bg:#f5f8ff;--bg2:#eef3fc;--bg3:#fff;--card:#fff;
+  --nav:rgba(245,248,255,0.93);--brd:rgba(24,95,165,0.13);--brd-h:rgba(24,95,165,0.35);
+  --tx:#0a1628;--tx2:#4a6080;--tx3:#8098b8;
+  --inp:#fff;--inp-brd:rgba(24,95,165,0.18);
+  --inp-f:rgba(24,95,165,0.45);--inp-fbg:#f0f6ff;
+  --tab-i:rgba(24,95,165,0.06);--tab-h:rgba(24,95,165,0.1);
+  --stat-brd:rgba(24,95,165,0.1);--foot:#dce8f8;--foot-brd:rgba(24,95,165,0.15);
+  --hero-glow:rgba(24,95,165,0.1);--grid:rgba(24,95,165,0.04);
+  --badge:rgba(24,95,165,0.08);--badge-brd:rgba(24,95,165,0.2);
+  --overlay:rgba(245,248,255,0.7);--sel:#f5f8ff;--shadow:rgba(24,95,165,0.15);
+  --modal-bg:#e8f0fc;
+}
+
+/* ===== RESET ===== */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);overflow-x:hidden;transition:background .35s,color .35s}
+
+/* ===== NAV ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;background:var(--nav);backdrop-filter:blur(16px);border-bottom:1px solid var(--brd);transition:background .35s,border .35s}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo span{font-family:'Sora',sans-serif;font-weight:700;font-size:1.1rem;color:var(--tx);letter-spacing:.03em}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-links{display:flex;gap:1.8rem}
+.nav-links a{color:var(--tx2);text-decoration:none;font-size:.88rem;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--blue)}
+.nav-cta{background:linear-gradient(135deg,var(--blue-d),var(--blue));color:#fff;padding:.5rem 1.3rem;border-radius:8px;text-decoration:none;font-size:.85rem;font-weight:600;transition:opacity .2s;white-space:nowrap}
+.nav-cta:hover{opacity:.88}
+.theme-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--brd);background:var(--tab-i);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:background .2s;flex-shrink:0}
+.theme-btn:hover{background:var(--tab-h)}
+
+/* ===== HERO ===== */
+#hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:7rem 2rem 4rem}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 30%,var(--hero-glow) 0%,transparent 70%);pointer-events:none}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+.hero-cnt{position:relative;text-align:center;max-width:800px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--badge);border:1px solid var(--badge-brd);border-radius:100px;padding:.38rem 1rem;margin-bottom:2rem;font-size:.75rem;color:var(--blue-l);font-weight:500;letter-spacing:.07em;text-transform:uppercase}
+.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--blue);display:inline-block;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+h1{font-family:'Sora',sans-serif;font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;line-height:1.1;margin-bottom:1.4rem;letter-spacing:-.02em;color:var(--tx)}
+h1 .ac{background:linear-gradient(135deg,var(--blue),var(--blue-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:1.05rem;color:var(--tx2);line-height:1.7;max-width:560px;margin:0 auto 2.5rem}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-p{background:linear-gradient(135deg,var(--blue-d),var(--blue));color:#fff;padding:.85rem 2rem;border-radius:10px;text-decoration:none;font-weight:600;font-size:.92rem;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 24px rgba(55,138,221,.25)}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(55,138,221,.35)}
+.btn-s{background:transparent;color:var(--blue);padding:.85rem 2rem;border-radius:10px;text-decoration:none;font-weight:600;font-size:.92rem;border:1px solid var(--brd);transition:background .2s}
+.btn-s:hover{background:var(--tab-h)}
+.hero-stats{display:flex;gap:3rem;justify-content:center;margin-top:4rem;padding-top:3rem;border-top:1px solid var(--stat-brd);flex-wrap:wrap}
+.stat-n{font-family:'Sora',sans-serif;font-size:2rem;font-weight:700;color:var(--blue)}
+.stat-l{font-size:.75rem;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;margin-top:.2rem}
+
+/* ===== TABS ===== */
+.tabs-bar{background:var(--bg2);border-bottom:1px solid var(--brd);position:sticky;top:64px;z-index:90;transition:background .35s}
+.tabs-inner{max-width:1100px;margin:0 auto;display:flex;padding:0 2rem;overflow-x:auto}
+.tab-btn{padding:1rem 1.6rem;background:transparent;border:none;color:var(--tx2);font-family:'Inter',sans-serif;font-size:.88rem;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;transition:color .2s,border-color .2s,background .2s;white-space:nowrap}
+.tab-btn:hover{color:var(--blue);background:var(--tab-h)}
+.tab-btn.active{color:var(--blue);border-bottom:2px solid var(--blue);font-weight:600}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* ===== SECTION COMMONS ===== */
+section{padding:5rem 2rem}
+.si{max-width:1100px;margin:0 auto}
+.s-tag{font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--blue);font-weight:600;margin-bottom:.7rem}
+.s-title{font-family:'Sora',sans-serif;font-size:clamp(1.7rem,3.5vw,2.6rem);font-weight:700;line-height:1.15;margin-bottom:.9rem;color:var(--tx)}
+.s-sub{color:var(--tx2);font-size:.95rem;line-height:1.7;max-width:540px}
+
+/* ===== SERVICES ===== */
+#panel-servicios{background:var(--bg2)}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:3rem}
+.svc-card{background:var(--card);border:1px solid var(--brd);border-radius:16px;padding:2rem;transition:border-color .3s,transform .3s;position:relative;overflow:hidden}
+[data-theme="light"] .svc-card{box-shadow:0 2px 12px rgba(24,95,165,.06)}
+.svc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--blue),transparent);opacity:0;transition:opacity .3s}
+.svc-card:hover{border-color:var(--brd-h);transform:translateY(-4px)}
+.svc-card:hover::before{opacity:1}
+.svc-ico{width:48px;height:48px;background:var(--badge);border:1px solid var(--brd);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:1.4rem}
+.svc-ico svg{width:22px;height:22px;stroke:var(--blue);fill:none;stroke-width:1.8}
+.svc-card h3{font-family:'Sora',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:.7rem;color:var(--tx)}
+.svc-card p{color:var(--tx2);font-size:.88rem;line-height:1.65;margin-bottom:1.4rem}
+.svc-feats{list-style:none;margin-bottom:1.4rem}
+.svc-feats li{font-size:.84rem;color:var(--tx2);padding:.28rem 0;display:flex;align-items:flex-start;gap:8px}
+.svc-feats li::before{content:'✔';color:var(--blue);font-size:.72rem;margin-top:2px;flex-shrink:0}
+.svc-price{font-family:'Sora',sans-serif;font-size:1.35rem;font-weight:700;color:var(--blue)}
+.svc-price span{font-size:.72rem;color:var(--tx3);font-family:'Inter',sans-serif;font-weight:400;margin-left:4px}
+
+/* ===== PORTFOLIO GRID ===== */
+#panel-portfolio{background:var(--bg)}
+.p-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:1.3rem;margin-top:3rem}
+.p-card{background:var(--card);border:1px solid var(--brd);border-radius:18px;overflow:hidden;cursor:pointer;transition:transform .3s,box-shadow .3s,border-color .3s}
+[data-theme="light"] .p-card{box-shadow:0 2px 10px rgba(24,95,165,.06)}
+.p-card:hover{transform:translateY(-6px);border-color:var(--brd-h)}
+[data-theme="light"] .p-card:hover{box-shadow:0 12px 32px rgba(24,95,165,.13)}
+.p-card--real{border-color:rgba(55,138,221,.28)}
+.pc-thumb{height:195px;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;background:#111}
+.pc-img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.p-card:hover .pc-img{transform:scale(1.05)}
+.pc-emoji{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3.5rem}
+.pc-overlay{position:absolute;inset:0;background:var(--overlay);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s}
+.p-card:hover .pc-overlay{opacity:1}
+.pc-overlay span{background:var(--blue-d);color:#fff;padding:.55rem 1.3rem;border-radius:8px;font-size:.82rem;font-weight:600}
+.pc-body{padding:1.2rem 1.3rem}
+.pc-badge{display:inline-block;font-size:.62rem;padding:2px 9px;border-radius:100px;background:rgba(55,138,221,.15);color:var(--blue);border:1px solid rgba(55,138,221,.3);font-weight:600;letter-spacing:.05em;margin-bottom:.5rem}
+.pc-body h3{font-family:'Sora',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.32rem;color:var(--tx)}
+.pc-body p{font-size:.8rem;color:var(--tx2);line-height:1.55;margin-bottom:.85rem}
+.pc-tags{display:flex;gap:5px;flex-wrap:wrap}
+.pc-tags span{font-size:.66rem;padding:2px 8px;border-radius:100px;background:var(--tab-i);color:var(--tx3);border:1px solid var(--brd)}
+
+/* ===== MODAL ===== */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:300;background:rgba(4,6,15,.96);overflow-y:auto}
+.modal-overlay.open{display:block;animation:mfade .22s ease}
+@keyframes mfade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.modal-scroll{min-height:100vh}
+.modal-inner{max-width:1000px;margin:0 auto;padding:5rem 2rem 4rem}
+.modal-back{display:inline-flex;align-items:center;gap:6px;background:var(--tab-i);border:1px solid var(--brd);color:var(--tx2);font-family:'Inter',sans-serif;font-size:.84rem;font-weight:500;padding:.5rem 1.1rem;border-radius:8px;cursor:pointer;margin-bottom:2.5rem;transition:background .2s,color .2s}
+.modal-back:hover{background:var(--tab-h);color:var(--blue)}
+.modal-head{display:grid;grid-template-columns:auto 1fr;gap:1.8rem;align-items:flex-start;margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--brd)}
+.modal-icon{width:66px;height:66px;border-radius:16px;background:rgba(var(--ac-rgb),.12);border:1px solid rgba(var(--ac-rgb),.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;background:color-mix(in srgb,var(--ac,#378add) 10%,transparent);border:1px solid color-mix(in srgb,var(--ac,#378add) 30%,transparent)}
+.modal-badge{display:inline-block;font-size:.68rem;padding:3px 10px;border-radius:100px;font-weight:700;letter-spacing:.06em;margin-bottom:.6rem;background:color-mix(in srgb,var(--ac,#378add) 15%,transparent);color:var(--ac,#378add);border:1px solid color-mix(in srgb,var(--ac,#378add) 30%,transparent)}
+.modal-title{font-family:'Sora',sans-serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:800;line-height:1.1;margin-bottom:.55rem;color:var(--tx)}
+.modal-sub{color:var(--tx2);font-size:.92rem;line-height:1.7;margin-bottom:1rem;max-width:580px}
+.modal-tags{display:flex;gap:7px;flex-wrap:wrap}
+.modal-tag{font-size:.72rem;padding:4px 11px;border-radius:100px;background:var(--badge);color:var(--blue-l);border:1px solid var(--badge-brd)}
+
+/* ===== SCREENSHOTS ===== */
+.sc-section{margin-bottom:2.5rem}
+.sc-label-head{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--tx3);font-weight:600;margin-bottom:1.2rem}
+.sc-grid{display:grid;gap:1rem}
+.sc-mobile{grid-template-columns:repeat(auto-fill,minmax(155px,1fr))}
+.sc-desktop{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.sc-frame{border-radius:14px;overflow:hidden;border:1px solid var(--brd);background:var(--bg3);position:relative;cursor:zoom-in;transition:transform .25s,box-shadow .25s,border-color .25s}
+.sc-frame:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 12px 40px var(--shadow);border-color:var(--brd-h)}
+.sc-frame img{width:100%;display:block}
+.sc-label{position:absolute;bottom:0;left:0;right:0;padding:.45rem .75rem;background:linear-gradient(transparent,rgba(0,0,0,.75));font-size:.7rem;color:rgba(255,255,255,.75);font-weight:500}
+
+/* ===== DESC BLOCK ===== */
+.desc-block{background:var(--card);border:1px solid var(--brd);border-radius:16px;padding:2rem;margin-bottom:1.5rem}
+[data-theme="light"] .desc-block{box-shadow:0 2px 10px rgba(24,95,165,.05)}
+.desc-block h4{font-family:'Sora',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.9rem;color:var(--tx)}
+.desc-block p{color:var(--tx2);font-size:.9rem;line-height:1.75}
+.feat-list{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.5rem;margin-top:1.1rem}
+.feat-list li{display:flex;align-items:flex-start;gap:8px;font-size:.84rem;color:var(--tx2);padding:.3rem 0}
+.feat-list li span{color:var(--blue);flex-shrink:0;margin-top:1px}
+
+/* ===== CONTACTO ===== */
+#panel-contacto{background:var(--bg2)}
+.contact-wrap{display:grid;grid-template-columns:1fr 1.6fr;gap:4rem;align-items:start}
+.contact-left{display:flex;flex-direction:column}
+.contact-logo-row{display:flex;align-items:center;gap:12px;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--brd)}
+.contact-logo-row span{font-family:'Sora',sans-serif;font-weight:700;font-size:1.05rem;color:var(--tx);letter-spacing:.03em}
+.contact-info h2{font-family:'Sora',sans-serif;font-size:1.75rem;font-weight:700;margin-bottom:.9rem;color:var(--tx)}
+.contact-info p{color:var(--tx2);line-height:1.7;margin-bottom:2rem}
+.c-detail{display:flex;align-items:center;gap:12px;margin-bottom:1.1rem}
+.c-ico{width:40px;height:40px;background:var(--badge);border:1px solid var(--brd);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.c-ico svg{width:17px;height:17px;stroke:var(--blue);fill:none;stroke-width:1.8}
+.c-txt{font-size:.88rem;color:var(--tx2)}
+.c-txt a{color:var(--blue);text-decoration:none}
+.contact-form{background:var(--card);border:1px solid var(--brd);border-radius:20px;padding:2.4rem;transition:background .35s,border .35s}
+[data-theme="light"] .contact-form{box-shadow:0 4px 24px rgba(24,95,165,.08)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+.form-full{grid-column:1/-1}
+.fg{display:flex;flex-direction:column;gap:5px}
+.fg label{font-size:.77rem;color:var(--tx2);font-weight:500;letter-spacing:.02em}
+.fg input,.fg select,.fg textarea{background:var(--inp);border:1px solid var(--inp-brd);border-radius:9px;padding:.72rem 1rem;color:var(--tx);font-family:'Inter',sans-serif;font-size:.88rem;outline:none;transition:border-color .2s,background .2s}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--tx3)}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--inp-f);background:var(--inp-fbg)}
+.fg select option{background:var(--sel);color:var(--tx)}
+.fg textarea{resize:vertical;min-height:105px}
+.prv{display:flex;align-items:flex-start;gap:10px;margin-top:.4rem}
+.prv input{margin-top:3px;accent-color:var(--blue);flex-shrink:0}
+.prv label{font-size:.77rem;color:var(--tx2);line-height:1.5}
+.prv a{color:var(--blue);text-decoration:none}
+.form-submit{width:100%;background:linear-gradient(135deg,var(--blue-d),var(--blue));color:#fff;border:none;padding:1rem;border-radius:10px;font-family:'Sora',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;margin-top:1rem;transition:opacity .2s,transform .2s;letter-spacing:.02em}
+.form-submit:hover{opacity:.9;transform:translateY(-1px)}
+
+/* ===== LIGHTBOX ===== */
+.lb{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.93);align-items:center;justify-content:center;cursor:zoom-out}
+.lb.open{display:flex;animation:mfade .2s ease}
+.lb img{max-width:92vw;max-height:90vh;border-radius:12px;object-fit:contain}
+.lb-close{position:absolute;top:1.2rem;right:1.2rem;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:#fff;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
+/* ===== FOOTER ===== */
+footer{background:var(--foot);border-top:1px solid var(--foot-brd);padding:2rem;text-align:center;color:var(--tx3);font-size:.8rem;transition:background .35s}
+footer a{color:var(--blue);text-decoration:none}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .nav-links{display:none}
+  .contact-wrap{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .form-full{grid-column:auto}
+  .modal-head{grid-template-columns:1fr}
+  .modal-icon{display:none}
+  .sc-mobile{grid-template-columns:repeat(2,1fr)}
+  .sc-desktop{grid-template-columns:1fr}
+  .hero-stats{gap:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <svg width="34" height="34" viewBox="0 0 100 100" fill="none">
+      <rect x="15" y="42" width="70" height="50" rx="10" stroke="url(#gN)" stroke-width="5" fill="none"/>
+      <path d="M33 42V30a17 17 0 0 1 34 0v12" stroke="url(#gN)" stroke-width="5" stroke-linecap="round" fill="none"/>
+      <circle cx="50" cy="65" r="6" fill="url(#gN)"/>
+      <line x1="50" y1="71" x2="50" y2="80" stroke="url(#gN)" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="22" cy="58" r="4" fill="url(#gN)"/>
+      <circle cx="78" cy="58" r="3" fill="none" stroke="url(#gN)" stroke-width="2.5"/>
+      <line x1="22" y1="62" x2="22" y2="75" stroke="url(#gN)" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="33" y1="75" x2="33" y2="62" stroke="url(#gN)" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="33" cy="62" r="3" fill="none" stroke="url(#gN)" stroke-width="2.5"/>
+      <line x1="67" y1="75" x2="67" y2="65" stroke="url(#gN)" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="67" cy="65" r="3" fill="url(#gN)"/>
+      <line x1="78" y1="62" x2="78" y2="78" stroke="url(#gN)" stroke-width="2.5" stroke-linecap="round"/>
+      <defs><linearGradient id="gN" x1="15" y1="10" x2="85" y2="90" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#378add"/><stop offset="1" stop-color="#85b7eb"/>
+      </linearGradient></defs>
+    </svg>
+    <span>JP TECHNOLOGY</span>
+  </div>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#" onclick="showTab('servicios');return false">Servicios</a>
+      <a href="#" onclick="showTab('portfolio');return false">Portfolio</a>
+      <a href="#" onclick="showTab('contacto');return false">Contacto</a>
+    </div>
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">☀️</button>
+    <a href="#" class="nav-cta" onclick="showTab('contacto');return false">Iniciar Proyecto</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-cnt">
+    <div class="hero-badge">Software a medida · Desde Buenos Aires para el mundo</div>
+    <h1>Convertimos ideas en<br><span class="ac">productos digitales</span><br>que escalan</h1>
+    <p class="hero-sub">Desarrollamos MVPs, aplicaciones móviles y sistemas internos para startups y empresas que buscan salir al mercado rápido con tecnología sólida.</p>
+    <div class="hero-btns">
+      <a href="#" class="btn-p" onclick="showTab('contacto');return false">Empezar un proyecto →</a>
+      <a href="#" class="btn-s" onclick="showTab('servicios');return false">Ver servicios</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-n">+100</div><div class="stat-l">Proyectos entregados</div></div>
+      <div><div class="stat-n">10</div><div class="stat-l">Años de experiencia</div></div>
+      <div><div class="stat-n">5</div><div class="stat-l">Países con clientes</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TABS BAR -->
+<div class="tabs-bar">
+  <div class="tabs-inner">
+    <button class="tab-btn active" id="tab-servicios" onclick="showTab('servicios')">Servicios</button>
+    <button class="tab-btn" id="tab-portfolio" onclick="showTab('portfolio')">Portfolio</button>
+    <button class="tab-btn" id="tab-contacto" onclick="showTab('contacto')">Contacto</button>
+  </div>
+</div>
+
+<!-- ══════════ PANEL SERVICIOS ══════════ -->
+<div class="tab-panel active" id="panel-servicios">
+<section><div class="si">
+  <div class="s-tag">Lo que hacemos</div>
+  <h2 class="s-title">Nuestros servicios</h2>
+  <p class="s-sub">Soluciones tecnológicas a medida para cada etapa de tu negocio.</p>
+  <div class="svc-grid">
+    <div class="svc-card">
+      <div class="svc-ico"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+      <h3>MVP para Startup</h3>
+      <p>Tu producto digital completo, listo para lanzar, validar mercado y comenzar a generar ingresos.</p>
+      <ul class="svc-feats">
+        <li>Web App + Mobile App (iOS &amp; Android)</li>
+        <li>Backend escalable preparado para crecimiento</li>
+        <li>Sistema de autenticación y pagos integrado</li>
+        <li>Panel de administración completo</li>
+        <li>Diseño UI/UX enfocado en conversión</li>
+      </ul>
+      <div class="svc-price">desde USD 35.000 <span>por proyecto</span></div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-ico"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+      <h3>Desarrollo Mobile App</h3>
+      <p>Aplicaciones móviles robustas enfocadas en crecimiento, retención de usuarios y monetización.</p>
+      <ul class="svc-feats">
+        <li>Apps iOS &amp; Android nativas/híbridas</li>
+        <li>Dashboard de administración</li>
+        <li>Monetización integrada (suscripciones / pagos)</li>
+        <li>Producto listo para producción</li>
+        <li>Soporte y estabilidad garantizados</li>
+      </ul>
+      <div class="svc-price">desde USD 25.000 <span>por proyecto</span></div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-ico"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+      <h3>Sistemas Internos para Empresas</h3>
+      <p>Sistemas a medida para optimizar procesos, centralizar operaciones y escalar tu negocio.</p>
+      <ul class="svc-feats">
+        <li>CRM a medida para tu operación</li>
+        <li>Integraciones (HubSpot, ERPs, APIs)</li>
+        <li>Automatización de procesos clave</li>
+        <li>Dashboards en tiempo real</li>
+        <li>Gestión de usuarios y operaciones</li>
+      </ul>
+      <div class="svc-price">desde USD 40.000 <span>por proyecto</span></div>
+    </div>
+  </div>
+</div></section>
+</div>
+
+<!-- ══════════ PANEL PORTFOLIO ══════════ -->
+<div class="tab-panel" id="panel-portfolio">
+<section><div class="si">
+  <div class="s-tag">Trabajo realizado</div>
+  <h2 class="s-title">Portfolio comercial</h2>
+  <p class="s-sub">Proyectos desarrollados a medida. Hacé clic para ver detalles, capturas y descripción completa.</p>
+  <div class="p-grid">
+
+      <div class="p-card p-card--real" onclick="openProject('iresident')">
+        <div class="pc-thumb">
+          <img src="images/ir.png" alt="ir" class="pc-img" style="" loading="lazy">
+          <div class="pc-overlay"><span>Ver proyecto →</span></div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-badge">CASO REAL</div>
+          <h3>iResident</h3>
+          <p>Gestión inteligente de condominios privados, barrios cerrados y complejos residenciales.</p>
+          <div class="pc-tags"><span>React Native</span><span>Node.js</span><span>Mobile App</span></div>
+        </div>
+      </div>
+
+      <div class="p-card p-card--real" onclick="openProject('muse')">
+        <div class="pc-thumb">
+        <img src="images/muse.webp" alt="Muse" class="pc-img" style="" loading="lazy">  
+        <div class="pc-overlay"><span>Ver proyecto →</span></div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-badge">CASO REAL</div>
+          <h3>Muse App</h3>
+          <p>Marketplace ágil para acelerar la comercialización de productos con flujos de compra optimizados.</p>
+          <div class="pc-tags"><span>Marketplace</span><span>Pagos</span><span>SaaS</span></div>
+        </div>
+      </div>
+
+      <div class="p-card p-card--real" onclick="openProject('podcast')">
+        <div class="pc-thumb">
+          <img src="images/podcast1.png" alt="Podcast Ganadero" class="pc-img" style="" loading="lazy">  
+          <div class="pc-overlay"><span>Ver proyecto →</span></div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-badge">CASO REAL</div>
+          <h3>Podcast Ganadero</h3>
+          <p>Plataforma de podcast para empresa líder del sector agroganadero en España.</p>
+          <div class="pc-tags"><span>React Native</span><span>Panel Admin</span><span>Streaming</span></div>
+        </div>
+      </div>
+
+      <div class="p-card " onclick="openProject('greek-salad')">
+        <div class="pc-thumb">
+          <img src="images/greek.webp" alt="Greek Salad" class="pc-img" style="" loading="lazy">  
+          <div class="pc-overlay"><span>Ver proyecto →</span></div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-badge">CASO REAL</div>
+          <h3>Greek Salad</h3>
+          <p>App móvil de finanzas personales con seguimiento de gastos, inversiones y metas.</p>
+          <div class="pc-tags"><span>React Native</span><span>Node.js</span><span>MVP</span></div>
+        </div>
+      </div>
+
+      <div class="p-card " onclick="openProject('mediconnect')">
+        <div class="pc-thumb">
+          <img src="images/medi.png" alt="MediConnect" class="pc-img" style="" loading="lazy">  
+          <div class="pc-overlay"><span>Ver proyecto →</span></div>
+        </div>
+        <div class="pc-body">
+          
+          <h3>MediConnect</h3>
+          <p>CRM médico para gestión de pacientes, turnos y facturación en redes de salud.</p>
+          <div class="pc-tags"><span>React</span><span>PostgreSQL</span><span>CRM</span></div>
+        </div>
+      </div>
+
+      <div class="p-card " onclick="openProject('shopnow')">
+        <div class="pc-thumb">
+          <img src="images/shop1.png" alt="ShopNow" class="pc-img" style="" loading="lazy">  
+          <div class="pc-overlay"><span>Ver proyecto →</span></div>
+        </div>
+        <div class="pc-body">
+          
+          <h3>ShopNow</h3>
+          <p>Marketplace B2C con pagos, panel de vendedores y app móvil para compradores.</p>
+          <div class="pc-tags"><span>Next.js</span><span>Stripe</span><span>Mobile</span></div>
+        </div>
+      </div>
+
+      
+  </div>
+</div></section>
+</div>
+
+<!-- ══════════ PANEL CONTACTO ══════════ -->
+<div class="tab-panel" id="panel-contacto">
+<section><div class="si">
+  <div class="contact-wrap">
+    <div class="contact-left">
+      <div class="contact-logo-row">
+        <svg width="46" height="46" viewBox="0 0 100 100" fill="none">
+      <rect x="15" y="42" width="70" height="50" rx="10" stroke="url(#gCL)" stroke-width="5" fill="none"/>
+      <path d="M33 42V30a17 17 0 0 1 34 0v12" stroke="url(#gCL)" stroke-width="5" stroke-linecap="round" fill="none"/>
+      <circle cx="50" cy="65" r="6" fill="url(#gCL)"/>
+      <line x1="50" y1="71" x2="50" y2="80" stroke="url(#gCL)" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="22" cy="58" r="4" fill="url(#gCL)"/>
+      <circle cx="78" cy="58" r="3" fill="none" stroke="url(#gCL)" stroke-width="2.5"/>
+      <line x1="22" y1="62" x2="22" y2="75" stroke="url(#gCL)" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="33" y1="75" x2="33" y2="62" stroke="url(#gCL)" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="33" cy="62" r="3" fill="none" stroke="url(#gCL)" stroke-width="2.5"/>
+      <line x1="67" y1="75" x2="67" y2="65" stroke="url(#gCL)" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="67" cy="65" r="3" fill="url(#gCL)"/>
+      <line x1="78" y1="62" x2="78" y2="78" stroke="url(#gCL)" stroke-width="2.5" stroke-linecap="round"/>
+      <defs><linearGradient id="gCL" x1="15" y1="10" x2="85" y2="90" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#378add"/><stop offset="1" stop-color="#85b7eb"/>
+      </linearGradient></defs>
+    </svg>
+        <span>JP TECHNOLOGY</span>
+      </div>
+      <div class="contact-info">
+        <div class="s-tag">Hablemos</div>
+        <h2>¿Tenés un proyecto<br>en mente?</h2>
+        <p>Contanos tu idea y te respondemos en menos de 24hs con una propuesta inicial.</p>
+        <div class="c-detail">
+          <div class="c-ico"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.83a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z"/></svg></div>
+          <div class="c-txt"><a href="tel:+5491161613067">+54 911 6161 3067</a></div>
+        </div>
+        <div class="c-detail">
+          <div class="c-ico"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div class="c-txt"><a href="mailto:contacto@jptechnology.com">contacto@jptechnology.com</a></div>
+        </div>
+      </div>
+    </div>
+    <form class="contact-form" action="contact.php" method="POST">
+      <div class="form-grid">
+        <div class="fg"><label>Nombre</label><input type="text" name="nombre" placeholder="Tu nombre" required></div>
+        <div class="fg"><label>Apellido</label><input type="text" name="apellido" placeholder="Tu apellido" required></div>
+        <div class="fg"><label>Empresa</label><input type="text" name="empresa" placeholder="Nombre de la empresa"></div>
+        <div class="fg"><label>Teléfono</label><input type="tel" name="telefono" placeholder="+54 9 ..."></div>
+        <div class="fg form-full"><label>Email</label><input type="email" name="email" placeholder="tu@email.com" required></div>
+        <div class="fg form-full"><label>Servicio de interés</label>
+          <select name="asunto" required>
+            <option value="" disabled selected>Seleccioná un servicio</option>
+            <option>MVP para Startup</option>
+            <option>Aplicaciones Móviles</option>
+            <option>CRM a Medida</option>
+          </select>
+        </div>
+        <div class="fg form-full"><label>Mensaje</label>
+          <textarea name="mensaje" placeholder="Describí brevemente tu idea, objetivos y tiempos estimados..."></textarea>
+        </div>
+        <div class="form-full">
+          <div class="prv">
+            <input type="checkbox" name="privacy" required>
+            <label>Acepto la <a href="#">política de privacidad</a> y el tratamiento de mis datos de contacto.</label>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="form-submit">Enviar mensaje →</button>
+    </form>
+  </div>
+</div></section>
+</div>
+
+<!-- ══════════ MODALES ══════════ -->
+
+  <div class="modal-overlay" id="modal-iresident">
+    <div class="modal-scroll">
+      <div class="modal-inner">
+
+        <button class="modal-back" onclick="closeModal()">← Volver al portfolio</button>
+
+        <div class="modal-head">
+          <div class="modal-icon" style="--ac:#e85d04">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#e85d04" stroke-width="1.8">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+
+
+          
+          <div>
+            <span class="modal-badge" style="--ac:#e85d04">CASO REAL</span>
+            <h2 class="modal-title">iResident — Gestión de condominios</h2>
+            <p class="modal-sub">Solución digital a medida para la gestión integral de condominios privados, barrios cerrados y complejos residenciales.</p>
+            <div class="modal-tags">
+              <span class="modal-tag">React Native</span>
+              <span class="modal-tag">Node.js</span>
+              <span class="modal-tag">Control de accesos</span>
+              <span class="modal-tag">Notificaciones push</span>
+              <span class="modal-tag">Panel Admin</span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="modal-body-vertical">
+          <div container style="display: flex; justify-content: center;">
+             <div class="sc-frame" onclick="openLightbox('images/ir.png')" style="margin-bottom: 2rem;">
+              <img src="images/ir.png" alt="UI de iResident" class="pc-img" style="max-width: 100%; height: auto; border-radius: 12px;" loading="lazy">
+            </div>
+            <div class="sc-frame" onclick="openLightbox('images/ir2.png')" style="margin-bottom: 2rem;">
+              <img src="images/ir2.png" alt="UI de iResident" class="pc-img" style="max-width: 100%; height: auto; border-radius: 12px;" loading="lazy">
+            </div>
+          </div>
+
+
+          <div class="desc-block">
+            <h4>Sobre el proyecto</h4>
+            <p>iResident es una solución digital desarrollada a medida para optimizar la gestión integral de condominios privados. La plataforma centraliza todas las operaciones clave del día a día, mejorando la comunicación, la seguridad y la eficiencia administrativa.</p>
+            <ul class="feat-list">
+              <li><span style="color:#e85d04">✔</span>Control de accesos (residentes, visitas y proveedores)</li>
+              <li><span style="color:#e85d04">✔</span>Registro y seguimiento de interacciones</li>
+              <li><span style="color:#e85d04">✔</span>Comunicación directa administración-residentes</li>
+              <li><span style="color:#e85d04">✔</span>Gestión de incidencias, reclamos y tareas</li>
+              <li><span style="color:#e85d04">✔</span>Panel administrativo con control total</li>
+              <li><span style="color:#e85d04">✔</span>Notificaciones push en tiempo real</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-muse">
+    <div class="modal-scroll">
+      <div class="modal-inner">
+        
+        <button class="modal-back" onclick="closeModal()">← Volver al portfolio</button>
+        
+        <div class="modal-head">
+          <div class="modal-icon" style="--ac:#7c3aed">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.8">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+          </div>
+          <div>
+            <span class="modal-badge" style="--ac:#7c3aed">CASO REAL</span>
+            <h2 class="modal-title">Muse App — Marketplace de productos</h2>
+            <p class="modal-sub">Plataforma marketplace ágil y escalable que redefine la comercialización digital. Reduce fricciones, mejora visibilidad y maximiza conversiones.</p>
+            <div class="modal-tags">
+              <span class="modal-tag">Marketplace</span>
+              <span class="modal-tag">Pagos integrados</span>
+              <span class="modal-tag">Panel Admin</span>
+              <span class="modal-tag">SaaS</span>
+              <span class="modal-tag">Vue.js</span>
+              <span class="modal-tag">Python</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-body-vertical">
+          <div class="sc-frame" onclick="openLightbox('images/muse.webp')" style="margin-bottom: 2rem;">
+            <div class="centered" style="display: flex; justify-content: center;">
+              <img src="images/muse.webp" alt="UI del muse" class="pc-img" style="max-width: 70%; height: auto; border-radius: 12px;" loading="lazy">
+            </div>
+          </div>  
+          <div class="desc-block">
+            <h4>Sobre el proyecto</h4>
+            <p>Muse App redefine la forma en que los productos se gestionan, publican y venden. Reduce fricciones en el proceso de comercialización, permitiendo optimizar tiempos, mejorar visibilidad y aumentar conversiones.</p>
+            <ul class="feat-list">
+              <li><span style="color:#7c3aed">✔</span>Publicación y administración de productos</li>
+              <li><span style="color:#7c3aed">✔</span>Sistema de catálogo optimizado para escalar</li>
+              <li><span style="color:#7c3aed">✔</span>Flujos de compra simplificados</li>
+              <li><span style="color:#7c3aed">✔</span>Panel admin con métricas clave</li>
+              <li><span style="color:#7c3aed">✔</span>Integración de pagos y automatización</li>
+              <li><span style="color:#7c3aed">✔</span>Performance y velocidad operativa</li>
+            </ul>
+          </div>
+        </div>
+      
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-podcast">
+    <div class="modal-scroll">
+      <div class="modal-inner">
+        
+        <button class="modal-back" onclick="closeModal()">← Volver al portfolio</button>
+        
+        <div class="modal-head">
+          <div class="modal-icon" style="--ac:#166534">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="1.8">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+              <line x1="12" y1="19" x2="12" y2="23"/>
+              <line x1="8" y1="23" x2="16" y2="23"/>
+            </svg>
+          </div>
+          <div>
+            <span class="modal-badge" style="--ac:#166534">CASO REAL</span>
+            <h2 class="modal-title">Podcast Ganadero — Plataforma de contenidos</h2>
+            <p class="modal-sub">Aplicación de podcast desarrollada para empresa líder del sector agroganadero en España. Canal directo de conocimiento técnico para profesionales del campo.</p>
+            <div class="modal-tags">
+              <span class="modal-tag">React Native</span>
+              <span class="modal-tag">Streaming</span>
+              <span class="modal-tag">Panel Admin</span>
+              <span class="modal-tag">iOS & Android</span>
+              <span class="modal-tag">España</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="modal-body-vertical">
+          <div container style="display: flex; justify-content: center;">
+             <div class="sc-frame" onclick="openLightbox('images/podcast1.png')" style="margin-bottom: 2rem;">
+              <img src="images/podcast1.png" alt="UI de podcast" class="pc-img" style="max-width: 100%; height: auto; border-radius: 12px;" loading="lazy">
+            </div>
+            <div class="sc-frame" onclick="openLightbox('images/podcast2.png')" style="margin-bottom: 2rem;">
+              <img src="images/podcast2.png" alt="UI de podcast" class="pc-img" style="max-width: 100%; height: auto; border-radius: 12px;" loading="lazy">
+            </div>
+          </div>
+          <div class="desc-block">
+            <h4>Sobre el proyecto</h4>
+            <p>Aplicación desarrollada para una empresa líder del sector agroganadero en España, enfocada en la difusión de conocimiento, tendencias y capacitación continua para profesionales del campo. La plataforma permite explorar episodios organizados por categorías como sanidad animal, nutrición, genética, gestión de explotaciones y sostenibilidad.</p>
+            <ul class="feat-list">
+              <li><span style="color:#4ade80">✔</span>Reproducción en segundo plano</li>
+              <li><span style="color:#4ade80">✔</span>Descarga offline de episodios</li>
+              <li><span style="color:#4ade80">✔</span>Listas personalizadas</li>
+              <li><span style="color:#4ade80">✔</span>Recomendaciones inteligentes basadas en comportamiento</li>
+              <li><span style="color:#4ade80">✔</span>Panel admin para gestión de contenidos</li>
+              <li><span style="color:#4ade80">✔</span>Métricas de consumo y segmentación de audiencias</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-greek-salad">
+    <div class="modal-scroll">
+      <div class="modal-inner">
+        <button class="modal-back" onclick="closeModal()">← Volver al portfolio</button>
+        
+        <div class="modal-head">
+          <div class="modal-icon" style="--ac:#378add">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#378add" stroke-width="1.8">
+              <line x1="12" y1="1" x2="12" y2="23"/>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <div>
+            <span class="modal-badge" style="--ac:#378add">CASO REAL</span>
+            <h2 class="modal-title">Greek Salad — Plataforma de recetas</h2>
+            <p class="modal-sub">App avanzada para transformar la experiencia culinaria doméstica con planificación de menús e información nutricional detallada.</p>
+            <div class="modal-tags">
+              <span class="modal-tag">React Native</span>
+              <span class="modal-tag">UX/UI Design</span>
+              <span class="modal-tag">Nutrición</span>
+              <span class="modal-tag">iOS & Android</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-body-vertical">
+          <div class="sc-frame" onclick="openLightbox('images/greek.webp')" style="margin-bottom: 2rem;">
+            <div container style="display: flex; justify-content: center;">
+              <img src="images/greek.webp" alt="UI de Greek Salad" class="pc-img" style="max-width: 50%; height: auto; border-radius: 12px;" loading="lazy">
+            </div>
+          </div>
+
+          <div class="desc-block">
+            <h4>Sobre el proyecto</h4>
+            <p>Solución digital desarrollada para optimizar la planificación culinaria y asegurar la transparencia nutricional. La interfaz permite explorar bibliotecas de platos frescos organizados por categorías y gestionar el proceso de cocina de principio a fin.</p>
+            <ul class="feat-list">
+              <li><span style="color:#378add">✔</span>Búsqueda y filtrado inteligente por ingredientes</li>
+              <li><span style="color:#378add">✔</span>Transparencia nutricional y desglose de macros</li>
+              <li><span style="color:#378add">✔</span>Guía estructurada paso a paso</li>
+              <li><span style="color:#378add">✔</span>Planificación de menús semanal</li>
+              <li><span style="color:#378add">✔</span>Gestión de favoritos y colecciones personalizadas</li>
+              <li><span style="color:#378add">✔</span>Performance visual y alta velocidad operativa</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="modal-overlay" id="modal-mediconnect">
+    <div class="modal-scroll">
+      <div class="modal-inner">
+        <button class="modal-back" onclick="closeModal()">← Volver al portfolio</button>
+        
+        <div class="modal-head">
+          <div class="modal-icon" style="--ac:#378add">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#378add" stroke-width="1.8">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            </svg>
+          </div>
+          <div>
+            <h2 class="modal-title">MediConnect — CRM médico</h2>
+            <p class="modal-sub">CRM médico personalizado para red de clínicas privadas. Reemplaza planillas desconectadas con un único panel de control.</p>
+            <div class="modal-tags">
+              <span class="modal-tag">React</span>
+              <span class="modal-tag">PostgreSQL</span>
+              <span class="modal-tag">CRM</span>
+              <span class="modal-tag">Salud</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-body-vertical">
+          <div container style="display: flex; justify-content: center;">
+            <div class="sc-frame" onclick="openLightbox('images/medi.png')" style="margin-bottom: 2rem;"> 
+              <img src="images/medi.png" alt="UI de MediConnect" class="pc-img" style="max-width: 100%; height: auto; border-radius: 12px;" loading="lazy">
+            </div>
+            <div class="sc-frame" onclick="openLightbox('images/medi1.png')" style="margin-bottom: 2rem;">
+              <img src="images/medi1.png" alt="UI de MediConnect" class="pc-img" style="max-width: 100%; height: auto; border-radius: 12px;" loading="lazy">
+            </div>
+          </div>
+
+          <div class="desc-block">
+            <h4>Sobre el proyecto</h4>
+            <p>CRM médico para red de clínicas privadas multi-sede. Centraliza historia clínica digital, agenda de turnos, facturación y comunicación entre profesionales. Integrado con obras sociales y facturación electrónica.</p>
+            <ul class="feat-list">
+              <li><span style="color:#378add">✔</span>Historia clínica digital centralizada</li>
+              <li><span style="color:#378add">✔</span>Agenda inteligente de turnos</li>
+              <li><span style="color:#378add">✔</span>Facturación y cobros integrados</li>
+              <li><span style="color:#378add">✔</span>Multi-sede con roles y permisos</li>
+              <li><span style="color:#378add">✔</span>Integración obras sociales</li>
+              <li><span style="color:#378add">✔</span>Reportes de ocupación y métricas</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-shopnow">
+    <div class="modal-scroll">
+      <div class="modal-inner">
+        <button class="modal-back" onclick="closeModal()">← Volver al portfolio</button>
+        
+        <div class="modal-head">
+          <div class="modal-icon" style="--ac:#378add">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#378add" stroke-width="1.8">
+              <circle cx="9" cy="21" r="1"/>
+              <circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+          </div>
+          <div>
+            <h2 class="modal-title">ShopNow — E-commerce B2C</h2>
+            <p class="modal-sub">Marketplace B2C con sistema de pagos integrado, panel de gestión para vendedores y app móvil para compradores.</p>
+            <div class="modal-tags"><span class="modal-tag">Next.js</span><span class="modal-tag">Stripe</span><span class="modal-tag">Mobile App</span><span class="modal-tag">Marketplace</span></div>
+          </div>
+        </div>
+
+        <div class="modal-body-vertical">
+          <div container style="display: flex; justify-content: center;">
+            <div class="sc-frame" onclick="openLightbox('images/shop1.png')" style="margin-bottom: 2rem;">  
+              <img src="images/shop1.png" alt="UI de ShopNow" class="pc-img" style="max-width: 100%; height: auto; border-radius: 12px;" loading="lazy">
+            </div>
+            <div class="sc-frame" onclick="openLightbox('images/shop2.png')" style="margin-bottom: 2rem;">
+              <img src="images/shop2.png" alt="UI de ShopNow" class="pc-img" style="max-width: 100%; height: auto; border-radius: 12px;" loading="lazy">
+            </div>
+          </div>
+        
+
+          <div class="desc-block">
+            <h4>Sobre el proyecto</h4> 
+            <p>Plataforma e-commerce multi-vendedor con panel de administración, Stripe, app móvil para compradores y sistema de reviews. Reportes de ventas en tiempo real.</p>
+            <ul class="feat-list"><li><span style="color:#378add">✔</span>Multi-vendedor con onboarding</li>
+              <li><span style="color:#378add">✔</span>Pagos con Stripe y MercadoPago</li>
+              <li><span style="color:#378add">✔</span>App móvil iOS & Android</li>
+              <li><span style="color:#378add">✔</span>Panel de vendedor con métricas</li>
+              <li><span style="color:#378add">✔</span>Reviews y ratings</li>
+              <li><span style="color:#378add">✔</span>Gestión de stock automática</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" onclick="closeLB()">
+  <button class="lb-close" onclick="closeLB()">✕</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<footer>
+  <p>&copy; 2026 JP Technology &middot; Todos los derechos reservados &middot; <a href="#">Política de privacidad</a></p>
+</footer>
+
+<script>
+// ── TABS ──────────────────────────────────────────────
+function showTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+  document.querySelector('.tabs-bar').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ── PORTFOLIO MODAL ───────────────────────────────────
+function openProject(id) {
+  closeModal();
+  const m = document.getElementById('modal-' + id);
+  if (!m) return;
+  m.classList.add('open');
+  m.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('open'));
+  document.body.style.overflow = '';
+}
+
+// ── LIGHTBOX ──────────────────────────────────────────
+function openLightbox(src) {
+  event.stopPropagation();
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb').classList.add('open');
+}
+function closeLB() {
+  document.getElementById('lb').classList.remove('open');
+  document.getElementById('lb-img').src = '';
+}
+
+// ── THEME ─────────────────────────────────────────────
+function toggleTheme() {
+  const html = document.documentElement;
+  const dark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', dark ? 'light' : 'dark');
+  document.getElementById('themeBtn').textContent = dark ? '🌙' : '☀️';
+  localStorage.setItem('jp-theme', dark ? 'light' : 'dark');
+}
+(function() {
+  const s = localStorage.getItem('jp-theme');
+  if (s) {
+    document.documentElement.setAttribute('data-theme', s);
+    document.getElementById('themeBtn').textContent = s === 'dark' ? '☀️' : '🌙';
+  }
+})();
+
+// ── ESC para cerrar ───────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeLB(); closeModal(); }
+});
+
+// ── Click fuera del modal-inner cierra ────────────────
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', e => { if (e.target === m || e.target === m.querySelector('.modal-scroll')) closeModal(); });
+});
+</script>
+</body>
+</html>
