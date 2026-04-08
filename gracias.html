@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mensaje enviado — JP Technology</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='15' y='42' width='70' height='50' rx='10' stroke='%23378add' stroke-width='5' fill='none'/%3E%3Cpath d='M33 42V30a17 17 0 0 1 34 0v12' stroke='%23378add' stroke-width='5' stroke-linecap='round' fill='none'/%3E%3Ccircle cx='50' cy='65' r='6' fill='%23378add'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--blue:#378add;--blue-d:#185fa5;--blue-l:#85b7eb}
+  [data-theme="dark"]{--bg:#0a0f1c;--bg2:#0d1220;--tx:#fff;--tx2:rgba(255,255,255,0.55);--brd:rgba(55,138,221,0.15);--card:rgba(255,255,255,0.03);--grid:rgba(55,138,221,0.05);--glow:rgba(24,95,165,0.2)}
+  [data-theme="light"]{--bg:#f5f8ff;--bg2:#eef3fc;--tx:#0a1628;--tx2:#4a6080;--brd:rgba(24,95,165,0.13);--card:#fff;--grid:rgba(24,95,165,0.04);--glow:rgba(24,95,165,0.12)}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;position:relative}
+  .bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 40%,var(--glow),transparent 70%);pointer-events:none}
+  .grid{position:absolute;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+
+  .card{position:relative;background:var(--card);border:1px solid var(--brd);border-radius:24px;padding:3.5rem 3rem;max-width:520px;width:90%;text-align:center;animation:up .5s cubic-bezier(.22,1,.36,1)}
+  @keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+  .check-circle{width:80px;height:80px;border-radius:50%;background:rgba(16,185,129,0.12);border:2px solid rgba(16,185,129,0.35);display:flex;align-items:center;justify-content:center;margin:0 auto 2rem;animation:pop .6s .2s cubic-bezier(.22,1,.36,1) both}
+  @keyframes pop{from{transform:scale(0.6);opacity:0}to{transform:scale(1);opacity:1}}
+  .check-circle svg{width:38px;height:38px;stroke:#10b981;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+
+  .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);border-radius:100px;padding:.3rem .9rem;font-size:.72rem;color:#10b981;font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:1.2rem}
+
+  h1{font-family:'Sora',sans-serif;font-size:clamp(1.7rem,4vw,2.2rem);font-weight:800;margin-bottom:.8rem;line-height:1.15}
+  h1 span{background:linear-gradient(135deg,var(--blue),var(--blue-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  p{color:var(--tx2);line-height:1.7;font-size:.95rem;margin-bottom:.6rem}
+  p strong{color:var(--tx);font-weight:600}
+
+  .divider{height:1px;background:var(--brd);margin:2rem 0}
+
+  .info-row{display:flex;align-items:center;justify-content:center;gap:.6rem;font-size:.85rem;color:var(--tx2);margin-bottom:.5rem}
+  .info-row svg{width:16px;height:16px;stroke:var(--blue);fill:none;stroke-width:1.8;flex-shrink:0}
+  .info-row a{color:var(--blue);text-decoration:none}
+
+  .btn-home{display:inline-flex;align-items:center;gap:8px;margin-top:2rem;background:linear-gradient(135deg,var(--blue-d),var(--blue));color:#fff;padding:.85rem 2.2rem;border-radius:10px;text-decoration:none;font-family:'Sora',sans-serif;font-weight:700;font-size:.92rem;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(55,138,221,.3)}
+  .btn-home:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(55,138,221,.4)}
+
+  .countdown{font-size:.78rem;color:var(--tx2);margin-top:1rem}
+  .countdown span{color:var(--blue);font-weight:600}
+
+  /* partículas */
+  .particle{position:fixed;width:6px;height:6px;border-radius:50%;animation:fall linear forwards;pointer-events:none}
+  @keyframes fall{0%{opacity:1;transform:translateY(-10px) rotate(0deg)}100%{opacity:0;transform:translateY(100vh) rotate(720deg)}}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="grid"></div>
+
+<div class="card">
+  <div class="check-circle">
+    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+  </div>
+  <div class="badge">✓ Mensaje recibido</div>
+  <h1>¡Gracias por<br><span>escribirnos!</span></h1>
+  <p>Tu mensaje llegó correctamente.<br>
+  Te respondemos a <strong>tu email</strong> en menos de <strong>24hs hábiles</strong>.</p>
+
+  <div class="divider"></div>
+
+  <div class="info-row">
+    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.83a16 16 0 0 0 6 6z"/></svg>
+    <a href="tel:+5491161613067">+54 911 6161 3067</a>
+  </div>
+  <div class="info-row">
+    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    <a href="mailto:info@technologyjp.com">info@technologyjp.com</a>
+  </div>
+
+  <a href="/" class="btn-home">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Volver al inicio
+  </a>
+  <div class="countdown">Redirigiendo en <span id="sec">8</span> segundos...</div>
+</div>
+
+<script>
+  // Tema guardado
+  const saved = localStorage.getItem('jp-theme');
+  if (saved) document.documentElement.setAttribute('data-theme', saved);
+
+  // Countdown y redirect
+  let s = 8;
+  const el = document.getElementById('sec');
+  const t = setInterval(() => {
+    s--;
+    el.textContent = s;
+    if (s <= 0) { clearInterval(t); window.location.href = '/'; }
+  }, 1000);
+
+  // Confetti mínimo
+  const colors = ['#378add','#85b7eb','#10b981','#185fa5','#a78bfa'];
+  for (let i = 0; i < 28; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.cssText = `left:${Math.random()*100}%;top:${-Math.random()*20}px;background:${colors[i%colors.length]};animation-duration:${2.5+Math.random()*2}s;animation-delay:${Math.random()*.8}s;width:${4+Math.random()*6}px;height:${4+Math.random()*6}px`;
+    document.body.appendChild(p);
+  }
+</script>
+</body>
+</html>

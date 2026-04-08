@@ -345,7 +345,7 @@ footer a{color:var(--blue);text-decoration:none}
 
       <div class="p-card p-card--real" onclick="openProject('iresident')">
         <div class="pc-thumb">
-          <img src="images/ir.png" alt="ir" class="pc-img" style="" loading="lazy">
+          <img src="images/ir.png" alt="ir" class="pc-img"  loading="lazy">
           <div class="pc-overlay"><span>Ver proyecto →</span></div>
         </div>
         <div class="pc-body">
@@ -358,7 +358,7 @@ footer a{color:var(--blue);text-decoration:none}
 
       <div class="p-card p-card--real" onclick="openProject('muse')">
         <div class="pc-thumb">
-        <img src="images/muse.webp" alt="Muse" class="pc-img" style="" loading="lazy">  
+        <img src="images/muse.webp" alt="Muse" class="pc-img"  loading="lazy">  
         <div class="pc-overlay"><span>Ver proyecto →</span></div>
         </div>
         <div class="pc-body">
@@ -371,7 +371,7 @@ footer a{color:var(--blue);text-decoration:none}
 
       <div class="p-card p-card--real" onclick="openProject('podcast')">
         <div class="pc-thumb">
-          <img src="images/podcast1.png" alt="Podcast Ganadero" class="pc-img" style="" loading="lazy">  
+          <img src="images/podcast1.png" alt="Podcast Ganadero" class="pc-img"  loading="lazy">  
           <div class="pc-overlay"><span>Ver proyecto →</span></div>
         </div>
         <div class="pc-body">
@@ -384,7 +384,7 @@ footer a{color:var(--blue);text-decoration:none}
 
       <div class="p-card " onclick="openProject('greek-salad')">
         <div class="pc-thumb">
-          <img src="images/greek.webp" alt="Greek Salad" class="pc-img" style="" loading="lazy">  
+          <img src="images/greek.webp" alt="Greek Salad" class="pc-img"  loading="lazy">  
           <div class="pc-overlay"><span>Ver proyecto →</span></div>
         </div>
         <div class="pc-body">
@@ -397,7 +397,7 @@ footer a{color:var(--blue);text-decoration:none}
 
       <div class="p-card " onclick="openProject('mediconnect')">
         <div class="pc-thumb">
-          <img src="images/medi.png" alt="MediConnect" class="pc-img" style="" loading="lazy">  
+          <img src="images/medi.png" alt="MediConnect" class="pc-img"  loading="lazy">  
           <div class="pc-overlay"><span>Ver proyecto →</span></div>
         </div>
         <div class="pc-body">
@@ -410,7 +410,7 @@ footer a{color:var(--blue);text-decoration:none}
 
       <div class="p-card " onclick="openProject('shopnow')">
         <div class="pc-thumb">
-          <img src="images/shop1.png" alt="ShopNow" class="pc-img" style="" loading="lazy">  
+          <img src="images/shop1.png" alt="ShopNow" class="pc-img"  loading="lazy">  
           <div class="pc-overlay"><span>Ver proyecto →</span></div>
         </div>
         <div class="pc-body">
@@ -461,11 +461,26 @@ footer a{color:var(--blue);text-decoration:none}
         </div>
         <div class="c-detail">
           <div class="c-ico"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-          <div class="c-txt"><a href="mailto:contacto@jptechnology.com">contacto@jptechnology.com</a></div>
+          <div class="c-txt"><a href="mailto:info@technologyjp.com">info@technologyjp.com</a></div>
         </div>
       </div>
     </div>
-    <form class="contact-form" action="contact.php" method="POST">
+    <!--  opcion con php -->
+    <!-- solo con php funcional  -->
+    <!-- <form class="contact-form" action="contact.php" method="POST"> -->
+          <form class="contact-form" id="contact-form">
+
+
+      <!-- Web3Forms: sin PHP, funciona en Squarespace y cualquier hosting estático -->
+      <!-- IMPORTANTE: reemplazá YOUR_ACCESS_KEY con la key de web3forms.com/create -->
+      <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+      <input type="hidden" name="subject" value="Nuevo contacto — JP Technology">
+      <input type="hidden" name="from_name" value="JP Technology Web">
+      <input type="hidden" name="redirect" value="https://technologyjp.com/gracias">
+      <input type="hidden" name="replyto" id="replyto-field" value="">
+      <input type="checkbox" name="botcheck" style="display:none">
+
+
       <div class="form-grid">
         <div class="fg"><label>Nombre</label><input type="text" name="nombre" placeholder="Tu nombre" required></div>
         <div class="fg"><label>Apellido</label><input type="text" name="apellido" placeholder="Tu apellido" required></div>

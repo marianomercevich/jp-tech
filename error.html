@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Error al enviar — JP Technology</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='15' y='42' width='70' height='50' rx='10' stroke='%23378add' stroke-width='5' fill='none'/%3E%3Cpath d='M33 42V30a17 17 0 0 1 34 0v12' stroke='%23378add' stroke-width='5' stroke-linecap='round' fill='none'/%3E%3Ccircle cx='50' cy='65' r='6' fill='%23378add'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--blue:#378add;--blue-d:#185fa5;--blue-l:#85b7eb}
+  [data-theme="dark"]{--bg:#0a0f1c;--bg2:#0d1220;--tx:#fff;--tx2:rgba(255,255,255,0.55);--brd:rgba(55,138,221,0.15);--card:rgba(255,255,255,0.03);--grid:rgba(55,138,221,0.05);--glow:rgba(24,95,165,0.15)}
+  [data-theme="light"]{--bg:#f5f8ff;--bg2:#eef3fc;--tx:#0a1628;--tx2:#4a6080;--brd:rgba(24,95,165,0.13);--card:#fff;--grid:rgba(24,95,165,0.04);--glow:rgba(24,95,165,0.1)}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;position:relative}
+  .bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 40%,var(--glow),transparent 70%);pointer-events:none}
+  .grid{position:absolute;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+
+  .card{position:relative;background:var(--card);border:1px solid var(--brd);border-radius:24px;padding:3.5rem 3rem;max-width:520px;width:90%;text-align:center;animation:up .5s cubic-bezier(.22,1,.36,1)}
+  @keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+  .icon-circle{width:80px;height:80px;border-radius:50%;background:rgba(239,68,68,0.1);border:2px solid rgba(239,68,68,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 2rem;animation:pop .5s .2s cubic-bezier(.22,1,.36,1) both}
+  @keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+  .icon-circle svg{width:38px;height:38px;stroke:#ef4444;fill:none;stroke-width:2.5}
+
+  .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:100px;padding:.3rem .9rem;font-size:.72rem;color:#ef4444;font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:1.2rem}
+
+  h1{font-family:'Sora',sans-serif;font-size:clamp(1.6rem,4vw,2.1rem);font-weight:800;margin-bottom:.8rem;line-height:1.15}
+  p{color:var(--tx2);line-height:1.7;font-size:.92rem;margin-bottom:.5rem}
+  p strong{color:var(--tx);font-weight:600}
+
+  .divider{height:1px;background:var(--brd);margin:2rem 0}
+
+  .contact-alt{background:rgba(55,138,221,0.06);border:1px solid rgba(55,138,221,0.15);border-radius:14px;padding:1.4rem 1.6rem;margin-bottom:1.5rem;text-align:left}
+  .contact-alt p{font-size:.82rem;color:var(--tx2);margin-bottom:.8rem}
+  .contact-alt p strong{display:block;font-size:.9rem;color:var(--tx);margin-bottom:.5rem}
+  .info-row{display:flex;align-items:center;gap:.6rem;font-size:.85rem;color:var(--tx2);margin-bottom:.45rem}
+  .info-row svg{width:15px;height:15px;stroke:var(--blue);fill:none;stroke-width:1.8;flex-shrink:0}
+  .info-row a{color:var(--blue);text-decoration:none}
+
+  .btn-back{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--blue-d),var(--blue));color:#fff;padding:.85rem 2.2rem;border-radius:10px;text-decoration:none;font-family:'Sora',sans-serif;font-weight:700;font-size:.9rem;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(55,138,221,.3)}
+  .btn-back:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(55,138,221,.4)}
+  .btn-retry{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--blue);padding:.75rem 1.8rem;border-radius:10px;text-decoration:none;font-weight:600;font-size:.88rem;border:1px solid var(--brd);margin-left:.8rem;transition:background .2s}
+  .btn-retry:hover{background:rgba(55,138,221,.08)}
+  .btns{display:flex;justify-content:center;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="grid"></div>
+
+<div class="card">
+  <div class="icon-circle">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  </div>
+  <div class="badge">⚠ Error al enviar</div>
+  <h1>Algo salió mal</h1>
+  <p>No pudimos procesar tu mensaje en este momento.<br>
+  Por favor intentá de nuevo o contactanos directamente.</p>
+
+  <div class="divider"></div>
+
+  <div class="contact-alt">
+    <p><strong>Escribinos directamente:</strong>
+    Estamos disponibles y te respondemos en menos de 24hs.</p>
+    <div class="info-row">
+      <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <a href="mailto:info@technologyjp.com">info@technologyjp.com</a>
+    </div>
+    <div class="info-row">
+      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.83a16 16 0 0 0 6 6z"/></svg>
+      <a href="tel:+5491161613067">+54 911 6161 3067</a>
+    </div>
+    <div class="info-row">
+      <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      <a href="https://wa.me/5491161613067" target="_blank">WhatsApp directo</a>
+    </div>
+  </div>
+
+  <div class="btns">
+    <a href="/" class="btn-back">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      Volver al inicio
+    </a>
+    <a href="javascript:history.back()" class="btn-retry">Reintentar →</a>
+  </div>
+</div>
+
+<script>
+  const saved = localStorage.getItem('jp-theme');
+  if (saved) document.documentElement.setAttribute('data-theme', saved);
+</script>
+</body>
+</html>
